@@ -7,30 +7,40 @@ import { groupBySeason } from '../services/episodes'
 
 export default function Home() {
   const [episodes, setepisodes] = useState()
-  const [nameFilter, setnameFilter] = useState('')
   const [nextPage, setnextPage] = useState(1)
   const [loading, setloading] = useState(true)
   const [mounted, setmounted] = useState(false)
+  const [feedbackMessage, setfeedbackMessage] = useState('')
 
   const searchEpisodesByName = (value) => {
-    setnameFilter(value)
-    getNextEpisodes()
+    setepisodes(null)
+    getNextEpisodes(`{ name: "${value}"}`, 1)
   }
 
-  const getNextEpisodes = useCallback(async () => {
-    setloading(true)
-    try {
-      if (nextPage) {
-        let data = await getEpisodes(nameFilter, nextPage)
-        console.log('data', data)
-        setepisodes(groupBySeason(episodes, data.episodes.results))
-        setnextPage(data.episodes.info.next)
+  const getNextEpisodes = useCallback(
+    async (nameFilter = null, page = nextPage) => {
+      setloading(true)
+      try {
+        if (page) {
+          let data = await getEpisodes(nameFilter, page)
+          console.log('data', data)
+          setepisodes((episodes) =>
+            groupBySeason(episodes, data.episodes.results)
+          )
+          setnextPage(data.episodes.info.next)
+          setfeedbackMessage(null)
+        }
+      } catch (err) {
+        console.log(err)
+        if (err.response.data.episodes === null) {
+          setfeedbackMessage('Nenhum episódio encontrado')
+          setnextPage(1)
+        }
       }
-    } catch (err) {
-      console.log(err)
-    }
-    setloading(false)
-  }, [episodes, nameFilter, nextPage])
+      setloading(false)
+    },
+    [nextPage]
+  )
 
   useEffect(() => {
     if (!mounted) {
@@ -47,7 +57,8 @@ export default function Home() {
         episodes={episodes}
         loading={loading}
         nextPage={nextPage}
-        getNextEpisodes={getNextEpisodes}
+        feedbackMessage={feedbackMessage}
+        getNextEpisodes={() => getNextEpisodes()}
       />
     </div>
   )

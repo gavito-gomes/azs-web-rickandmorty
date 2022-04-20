@@ -22,7 +22,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path='/' element={<Home />} />
-          <Route path='/episode' element={<EpisodeDetails />} />
+          <Route path='/episode/:id' element={<EpisodeDetails />} />
           <Route path='*' element={<Navigate to='/' />} />
         </Routes>
       </BrowserRouter>

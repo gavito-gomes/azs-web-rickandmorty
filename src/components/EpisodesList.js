@@ -4,7 +4,13 @@ import Loading from '../components/Loading'
 import SelectFilter from './SelectFilter'
 
 export default function EpisodesList(props) {
-  const { episodes, loading, nextPage, getNextEpisodes = () => {} } = props
+  const {
+    episodes,
+    loading,
+    nextPage,
+    feedbackMessage,
+    getNextEpisodes = () => {},
+  } = props
 
   const [filter, setfilter] = useState(0)
 
@@ -41,11 +47,13 @@ export default function EpisodesList(props) {
         >
           {loading ? (
             <Loading />
-          ) : nextPage ? (
+          ) : nextPage && !feedbackMessage ? (
             <button onClick={getNextEpisodes} className='bg-primary p-3'>
               Buscar mais episódios
             </button>
-          ) : null}
+          ) : (
+            feedbackMessage
+          )}
         </li>
       </ul>
     </section>

@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SearchIcon } from '@heroicons/react/solid'
 
-export default function SearchBar() {
+export default function SearchBar(props) {
+  const { onSubmit } = props
+
+  const [value, setvalue] = useState()
+
   const handleSubmit = (e) => {
+    // console.log(value)
     e.preventDefault()
     e.target.blur()
+    onSubmit(value)
   }
 
   return (
@@ -12,7 +18,8 @@ export default function SearchBar() {
       <input
         type='text'
         className='flex-grow bg-[transparent] px-3'
-        placeholder='Procurar episódio...'
+        placeholder='Procurar pelo nome...'
+        onChange={(e) => setvalue(e.target.value)}
         onSubmit={handleSubmit}
       ></input>
       <button type='submit' className='p-2 bg-primary flex gap-2'>
