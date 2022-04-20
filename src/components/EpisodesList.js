@@ -16,24 +16,23 @@ export default function EpisodesList(props) {
 
   return (
     <section>
-      <SelectFilter onChange={setfilter} />
-      <ul
-        className='bg-panelBG  overflow-y-scroll px-4'
-        style={{ height: 'calc(100vh - 250px)' }}
-      >
+      <SelectFilter value={filter} onChange={setfilter} />
+      <ul className='bg-panelBG  overflow-y-scroll px-4 pt-4 lg:overflow-y-visible'>
         {episodes &&
           Object.keys(episodes).map((season) => {
             return (
               <li key={season}>
-                <p className='my-8 text-xl font-semibold'>
+                <p className='my-4 text-xl font-semibold'>
                   Temporada {season.slice(1)}
                 </p>
-                <ul>
+                <ul className='flex flex-wrap gap-3'>
                   {episodes[season].map((item) => {
                     return filter === 0 ||
                       (filter === 1 && item.favorite) ||
                       (filter === 2 && item.finished) ? (
-                      <EpisodeCard key={item.episode} episode={item} />
+                      <li className='lg:w-[49%]'>
+                        <EpisodeCard key={item.episode} episode={item} />
+                      </li>
                     ) : null
                   })}
                 </ul>

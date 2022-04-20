@@ -1,7 +1,7 @@
 import { request, gql } from 'graphql-request'
 
 export const getEpisodes = (filter, page = 1) => {
-  filter = filter ? `, filter: ${filter}` : ''
+  filter = !!filter ? `, filter: ${filter}` : ''
 
   const query = gql`
 {

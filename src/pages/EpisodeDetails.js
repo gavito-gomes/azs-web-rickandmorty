@@ -76,7 +76,7 @@ export default function EpisodeDetails() {
 
           <section>
             <h3 className='my-5 text-xl'>Personagens</h3>
-            <div>
+            <div className='flex flex-wrap gap-2'>
               {episode?.characters.map((char) => {
                 return <CharacterCard character={char} />
               })}

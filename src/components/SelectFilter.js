@@ -1,15 +1,15 @@
 import React from 'react'
-import Select from 'react-select'
+import ReactSelect from 'react-select'
 import { colors } from '../style/colors'
 
-export default function SelectFilter(props) {
-  const { value = 0, onChange } = props
+const options = [
+  { value: 0, label: 'Todos os episódios' },
+  { value: 1, label: 'Meus favoritos' },
+  { value: 2, label: 'Vistos' },
+]
 
-  const options = [
-    { value: 0, label: 'Todos os episódios' },
-    { value: 1, label: 'Meus favoritos' },
-    { value: 2, label: 'Vistos' },
-  ]
+function Select(props) {
+  const { value = 0, onChange } = props
 
   const customStyles = {
     menuList: (styles) => ({
@@ -45,11 +45,45 @@ export default function SelectFilter(props) {
   }
 
   return (
-    <Select
+    <ReactSelect
       options={options}
       styles={customStyles}
       defaultValue={options[value]}
       onChange={(opt) => onChange(opt.value)}
     />
+  )
+}
+
+function Tabs(props) {
+  const { value = 0, onChange } = props
+
+  return (
+    <div className='flex mt-6'>
+      {options.map((opt) => {
+        return (
+          <button
+            key={opt.value}
+            className={`flex-grow text-lg p-4 lg:p-3 lg:text-base lg:px-10
+            ${value === opt.value ? 'text-secondary bg-primary' : 'bg-dark'}`}
+            onClick={() => onChange(opt.value)}
+          >
+            {opt.label}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+export default function SelectFilter(props) {
+  return (
+    <div>
+      <div className='md:hidden'>
+        <Select {...props} />
+      </div>
+      <div className='hidden md:block'>
+        <Tabs {...props} />
+      </div>
+    </div>
   )
 }

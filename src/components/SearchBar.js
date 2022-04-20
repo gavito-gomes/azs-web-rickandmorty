@@ -14,17 +14,20 @@ export default function SearchBar(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className='border border-primary flex mb-3'>
+    <form
+      onSubmit={handleSubmit}
+      className='border border-primary flex mb-3 md:max-w-[50vw] mx-auto'
+    >
       <input
         type='text'
-        className='flex-grow bg-[transparent] px-3'
+        className='flex-grow bg-[transparent] pl-3 '
         placeholder='Procurar pelo nome...'
         onChange={(e) => setvalue(e.target.value)}
         onSubmit={handleSubmit}
       ></input>
       <button type='submit' className='p-2 bg-primary flex gap-2'>
         <SearchIcon color='#fefefe' width={25} height={25} />
-        <span>Pesquisar</span>
+        <span>Buscar</span>
       </button>
     </form>
   )

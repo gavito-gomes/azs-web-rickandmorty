@@ -14,7 +14,7 @@ export default function Tip(props) {
       </button>
       {text && (
         <div className={`${!active && 'hidden'} absolute`}>
-          <p className='bg-light px-5 py-3 -ml-[60%] w-[250px] shadow text-primary'>
+          <p className='bg-white px-5 py-3 -ml-[60%] w-[250px] shadow text-primary'>
             {text}
           </p>
         </div>
