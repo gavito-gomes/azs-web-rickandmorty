@@ -13,8 +13,9 @@ export default function Home() {
   const [feedbackMessage, setfeedbackMessage] = useState('')
 
   const searchEpisodesByName = (value) => {
+    let filter = value && `{ name: "${value}"}`
     setepisodes(null)
-    getNextEpisodes(`{ name: "${value}"}`, 1)
+    getNextEpisodes(filter, 1)
   }
 
   const getNextEpisodes = useCallback(
@@ -23,7 +24,6 @@ export default function Home() {
       try {
         if (page) {
           let data = await getEpisodes(nameFilter, page)
-          console.log('data', data)
           setepisodes((episodes) =>
             groupBySeason(episodes, data.episodes.results)
           )
@@ -31,12 +31,11 @@ export default function Home() {
           setfeedbackMessage(null)
         }
       } catch (err) {
-        console.log(err)
         if (err.response.data.episodes === null) {
           setfeedbackMessage('Nenhum episódio encontrado')
           setnextPage(1)
-        }
-        setfeedbackMessage('Algum erro ocorreu. Tente novamente mais tarde.')
+        } else
+          setfeedbackMessage('Algum erro ocorreu. Tente novamente mais tarde.')
       }
       setloading(false)
     },
@@ -51,7 +50,7 @@ export default function Home() {
   }, [getNextEpisodes, mounted])
 
   return (
-    <div className='px-3'>
+    <div className='px-3 pb-3'>
       <SearchBar onSubmit={searchEpisodesByName} />
 
       <EpisodesList

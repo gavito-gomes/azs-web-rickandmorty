@@ -17,7 +17,7 @@ export default function EpisodesList(props) {
   return (
     <section>
       <SelectFilter value={filter} onChange={setfilter} />
-      <ul className='bg-panelBG  overflow-y-scroll px-4 pt-4 lg:overflow-y-visible'>
+      <ul className='bg-panelBG  overflow-y-scroll px-4 py-4 lg:overflow-y-visible'>
         {episodes &&
           Object.keys(episodes).map((season) => {
             return (
@@ -30,8 +30,8 @@ export default function EpisodesList(props) {
                     return filter === 0 ||
                       (filter === 1 && item.favorite) ||
                       (filter === 2 && item.finished) ? (
-                      <li className='lg:w-[49%]'>
-                        <EpisodeCard key={item.episode} episode={item} />
+                      <li className='w-full lg:w-[49%]' key={item.episode}>
+                        <EpisodeCard episode={item} />
                       </li>
                     ) : null
                   })}
@@ -42,7 +42,7 @@ export default function EpisodesList(props) {
         <li
           className={`${
             !episodes && 'h-full'
-          } flex justify-center items-center p-4 mb-6`}
+          } flex justify-center items-center p-4 mb-3`}
         >
           {loading ? (
             <Loading />

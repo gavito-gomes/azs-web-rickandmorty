@@ -3,7 +3,6 @@ export const getFavorites = () =>
 
 export function markFavorite(id) {
   let favEps = getFavorites() || []
-  console.log(favEps.includes(id))
   if (!favEps.includes(id)) {
     favEps.push(id)
     localStorage.setItem('favorite_eps', JSON.stringify(favEps))
@@ -28,7 +27,6 @@ export const getFinished = () =>
 
 export function markFinished(id) {
   let fnshEps = getFinished() || []
-  console.log(fnshEps.includes(id))
   if (!fnshEps.includes(id)) {
     fnshEps.push(id)
     localStorage.setItem('finished_eps', JSON.stringify(fnshEps))

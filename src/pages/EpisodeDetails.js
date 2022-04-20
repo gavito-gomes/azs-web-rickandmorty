@@ -17,6 +17,7 @@ export default function EpisodeDetails() {
   const { id } = useParams()
   const [episode, setepisode] = useState({})
   const [loading, setloading] = useState(true)
+  const [err, seterr] = useState('')
   const [updateKey, setupdateKey] = useState(false)
 
   const date =
@@ -40,11 +41,10 @@ export default function EpisodeDetails() {
     const getEpisode = async () => {
       try {
         let data = await getEpisodeById(id)
-        console.log(data)
         setepisode(data.episode)
         setloading(false)
       } catch (err) {
-        console.log(err)
+        seterr('Algum erro ocorreu. Tente novamente mais tarde.')
       }
     }
 
@@ -65,7 +65,7 @@ export default function EpisodeDetails() {
       ) : (
         <section className='bg-panelBG p-5 mb-5'>
           <h1 className='text-2xl'>
-            {episode.episode} {episode.name}
+            {episode.episode} - {episode.name}
           </h1>
           <p className='my-4'>Estreou em {date}</p>
           <div className='flex items-center gap-3'>
@@ -77,11 +77,13 @@ export default function EpisodeDetails() {
           <section>
             <h3 className='my-5 text-xl'>Personagens</h3>
             <div className='flex flex-wrap gap-2'>
-              {episode?.characters.map((char) => {
-                return <CharacterCard character={char} />
+              {episode?.characters.map((char, i) => {
+                return <CharacterCard character={char} key={i} />
               })}
             </div>
           </section>
+
+          {err}
         </section>
       )}
     </main>
