@@ -13,10 +13,32 @@ export const getEpisodes = (filter, page = 1) => {
       prev
     }
     results {
+      id
       name
       episode
       air_date
       characters {name}
+    }
+  }
+}
+`
+
+  return request('https://rickandmortyapi.com/graphql', query)
+}
+
+export const getEpisodeById = (id) => {
+  const query = gql`
+{
+  episode(id: ${id}) {
+    id
+    name
+    episode
+    air_date
+    characters {
+      name
+      species
+      status
+      image
     }
   }
 }

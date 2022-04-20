@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import EpisodeCard from '../components/EpisodeCard'
-import Loading from '../components/Loading'
+import EpisodeCard from './EpisodeCard'
+import Loading from './Loading'
 import SelectFilter from './SelectFilter'
 
 export default function EpisodesList(props) {

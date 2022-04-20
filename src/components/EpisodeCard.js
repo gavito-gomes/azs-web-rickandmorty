@@ -8,7 +8,7 @@ import { checkIfFavorite, checkIfFinished } from '../services/localstorage'
 import { Link } from 'react-router-dom'
 
 export default function EpisodeCard(props) {
-  const { name, episode, air_date, characters } = props.episode
+  const { id, name, episode, air_date, characters } = props.episode
   const date = new Date(air_date)
 
   const favorite = checkIfFavorite(episode)
@@ -17,7 +17,7 @@ export default function EpisodeCard(props) {
   return (
     <Link
       className='bg-dark mb-3 py-3 px-4 pr-2 flex justify-between items-center'
-      to={`/episode/${episode}`}
+      to={`/episode/${id}`}
     >
       <div>
         <p className='text-lg mb-1'>

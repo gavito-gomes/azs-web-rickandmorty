@@ -8,7 +8,7 @@ export default function SelectFilter(props) {
   const options = [
     { value: 0, label: 'Todos os episódios' },
     { value: 1, label: 'Meus favoritos' },
-    { value: 2, label: 'Finalizados' },
+    { value: 2, label: 'Vistos' },
   ]
 
   const customStyles = {

@@ -36,6 +36,7 @@ export default function Home() {
           setfeedbackMessage('Nenhum episódio encontrado')
           setnextPage(1)
         }
+        setfeedbackMessage('Algum erro ocorreu. Tente novamente mais tarde.')
       }
       setloading(false)
     },
